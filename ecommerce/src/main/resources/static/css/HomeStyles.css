@@ -1,0 +1,42 @@
+body{
+    margin:0;
+}
+#navbar-top{
+    overflow: hidden;
+    background: #333;
+    margin-bottom: 0;
+}
+#navbar-top a{
+    float: left;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    text-transform: uppercase;
+}
+#navbar-top a:hover{
+    background: greenyellow;
+    color: black;
+}
+#navbar-top a.active{
+    background-color: #085338;
+    color: white;
+}
+#heading{
+    text-align: center;
+    color: white;
+    background-color: cyan;
+}
+
+#screensaver{
+    display: flex;
+    padding-top: 0;
+    width: 100%;
+    height: 400px;
+    background-color: cyan;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    color: darkred;
+}

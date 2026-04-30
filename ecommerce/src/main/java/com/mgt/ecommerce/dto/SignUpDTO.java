@@ -1,6 +1,7 @@
 
 package com.mgt.ecommerce.dto;
 
+import com.mgt.ecommerce.entity.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -23,10 +24,10 @@ public class SignUpDTO {
     @NumberFormat
     private String mobile;
 
-    @NotBlank(message = "Role Can't be blank")
-    private String role;
-
+    private Role role;
 
     @NotBlank(message = "Password Can't be blank")
     private String password;
+
 }
+

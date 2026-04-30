@@ -1,22 +1,43 @@
 package com.mgt.ecommerce.controller;
 
+import com.mgt.ecommerce.dto.LoginDTO;
 import com.mgt.ecommerce.dto.SignUpDTO;
+import com.mgt.ecommerce.service.UserService;
 import jakarta.validation.Valid;
-import org.apache.catalina.User;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequestMapping("/auth")
 public class SignRest {
 
+    private final UserService userService;
+
+    public SignRest(UserService userService) {
+        this.userService = userService;
+    }
+
     @PostMapping("/signup")
-    public void signUp(@Valid @ModelAttribute SignUpDTO signUpDTO){
-        System.out.println("signUp Name: "+signUpDTO.getName());
-        System.out.println("signUp Phone: "+signUpDTO.getMobile());
-        System.out.println("signUp Email: "+signUpDTO.getEmail());
-        System.out.println("SignUp Role: "+signUpDTO.getRole());
-        System.out.println("signUp Password: "+signUpDTO.getPassword());
+    public String signUp(@Valid @ModelAttribute SignUpDTO signUpDTO) {
+        userService.register(signUpDTO);
+        return "redirect:/login";
+    }
+
+    @PostMapping("/login")
+    public String signinController( @ModelAttribute("loginobj") LoginDTO loginDto ,Model model) {
+
+        try {
+            userService.loginHandler(loginDto);
+            return "redirect:/home";
+        } catch (RuntimeException e) {
+            if (e.getMessage().equals("USER_NOT_REGISTERED")){
+                model.addAttribute("emailError","User not found with this email please register");
+            } else if (e.getMessage().equals("WRONG_PASSWORD")) {
+                model.addAttribute("passError","Email or Password is not Correct");
+            }
+        }
+        return("login");
     }
 
 }
